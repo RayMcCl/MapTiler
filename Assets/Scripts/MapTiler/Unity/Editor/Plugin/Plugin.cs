@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace MapTiler
 {
-    public class BrushItem
+    public abstract class Plugin
     {
-        Point origin;
-
-        public BrushItem (Point origin)
-        {
-            this.origin = origin;
-        }
+        public abstract void Draw();
     }
 }

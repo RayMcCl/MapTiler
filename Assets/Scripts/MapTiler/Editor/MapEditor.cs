@@ -6,7 +6,7 @@ namespace MapTiler
     {
         Map map;
         List<Brush> brushList;
-        List<Layer> activeLayers;
+        Layer activeLayer;
         Brush activeBrush;
 
         public MapEditor (Map map)
@@ -31,10 +31,7 @@ namespace MapTiler
 
         public void ResizeLayers (int width, int height)
         {
-            foreach (Layer activeLayer in activeLayers)
-            {
-                activeLayer.Resize(width, height);
-            }
+            activeLayer.Resize(width, height);
         }
 
         public void Select (Point start, Point end)
