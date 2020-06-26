@@ -1,0 +1,6 @@
+﻿namespace MapTiler
+{
+    class Entity
+    {
+    }
+}
