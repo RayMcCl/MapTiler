@@ -5,10 +5,18 @@
 .vs
 
 # Unity
-Logs
-Library
-Packages
-ProjectSettings
-Temp
-obj
-UserSettings
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Builds
+*.unitypackage
