@@ -2,64 +2,42 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using Assets.Scripts.MapTiler.Unity;
+using MapTiler.Unity.View;
 
 namespace MapTiler.Unity
 {
     [CustomEditor(typeof(MapTiler))]
-    class MapTilerEditor : Editor
+    public class MapTilerEditor : Editor
     {
+        public MapTiler mapTiler;
         Dictionary<int, Tile> tileButtons;
-        Tile activeTile;
+        public Tile activeTile;
+        public Layer activeLayer;
 
-        private void OnEnable()
+        public override void OnInspectorGUI()
         {
-            
+            mapTiler = (MapTiler)target;
+            MapPropertiesView mapProperties = new MapPropertiesView(this);
+            mapProperties.Draw();
         }
-
-        //public override void OnInspectorGUI()
-        //{
-        //    serializedObject.Update();
-        //    EditorGUILayout.HelpBox("Test", MessageType.Info);
-        //    serializedObject.ApplyModifiedProperties();
-        //}
 
         void OnSceneGUI()
         {
-            Texture2D backgroundColor = new Texture2D(1, 1);
-            backgroundColor.SetPixel(0, 0, Color.blue);
-            GUI.skin.button.onHover.background = backgroundColor;
-            Handles.color = Color.blue;
-            Handles.color = Color.yellow;
-            MapTiler mapTiler = (MapTiler)target;
+            mapTiler = (MapTiler)target;
             Map map = mapTiler.map;
             Vector3 mapOrigin = new Vector3(map.origin.x, map.origin.y, 0);
 
-            foreach (Layer layer in map.layers)
+            if (activeLayer != null)
             {
-                DrawLayer(mapOrigin, layer);
+                DrawLayer(mapOrigin, activeLayer);
             }
         }
 
-        void HandleMouseEvent (Event m_Event)
-        {
-
-            if (m_Event.type == EventType.MouseDown)
-            {
-                Debug.Log("Mouse Down." + m_Event);
-            }
-
-            if (m_Event.type == EventType.MouseDrag)
-            {
-                Debug.Log("Mouse Dragged.");
-            }
-
-            if (m_Event.type == EventType.MouseUp)
-            {
-                Debug.Log("Mouse Up.");
-            }
-        }
-
+        /// <summary>
+        /// Draws the Layer to the Scene view.
+        /// </summary>
+        /// <param name="offset">The Map offset the layer should be drawn relative to.</param>
+        /// <param name="layer">The Layer to draw.</param>
         void DrawLayer (Vector3 offset, Layer layer)
         {
             Vector3 origin = new Vector3(layer.origin.x + offset.x, layer.origin.y + offset.y, 0);
@@ -75,6 +53,13 @@ namespace MapTiler.Unity
             }
         }
 
+        /// <summary>
+        /// Draws the Tile to the Scene view.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="tile"></param>
         void DrawTile (Vector3 position, int width, int height, Tile tile)
         {
             int controlId = GUIUtility.GetControlID(FocusType.Passive);

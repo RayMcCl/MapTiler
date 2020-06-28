@@ -2,7 +2,7 @@
 
 namespace MapTiler
 {
-    class MapTiler : MonoBehaviour
+    public class MapTiler : MonoBehaviour
     {
         public Map map;
     }
