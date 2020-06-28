@@ -1,10 +1,13 @@
-﻿namespace MapTiler
+﻿using System;
+
+namespace MapTiler
 {
+    [Serializable]
     public class Tile
     {
-        string name;
+        public string name;
         Asset asset;
-        int width;
-        int height;
+        public int width;
+        public int height;
     }
 }

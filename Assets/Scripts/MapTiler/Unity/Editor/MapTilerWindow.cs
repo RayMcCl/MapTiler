@@ -16,7 +16,7 @@ namespace MapTiler
         [MenuItem("Window/Map Tiler")]
         public static void ShowWindow ()
         {
-            EditorWindow.GetWindow(typeof(MapTilerWindow));
+            GetWindow(typeof(MapTilerWindow));
         }
 
         private void OnGUI()

@@ -1,5 +1,8 @@
-﻿namespace MapTiler
+﻿using System;
+
+namespace MapTiler
 {
+    [Serializable]
     public class Point
     {
         public int x;

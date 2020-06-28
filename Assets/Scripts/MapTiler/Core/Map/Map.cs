@@ -3,10 +3,15 @@ using System.Collections.Generic;
 
 namespace MapTiler
 {
+    [Serializable]
     public class Map
     {
-        static int maxLayers = 10;
-        List<Layer> layers;
+        public int maxLayers = 10;
+        public int width;
+        public int height;
+        public List<Layer> layers;
+        public List<Tile> tiles;
+        public Point origin;
 
         public void AddLayer (Layer layer)
         {

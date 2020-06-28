@@ -2,11 +2,12 @@
 
 namespace MapTiler
 {
+    [Serializable]
     public class Layer
     {
-        string name;
-        int width;
-        int height;
+        public string name;
+        public int width;
+        public int height;
         public Point origin;
         public Decimal opacity = Decimal.Zero;
 
