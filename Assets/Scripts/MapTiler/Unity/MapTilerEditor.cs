@@ -78,8 +78,9 @@ namespace MapTiler.Unity
         void DrawTile (Vector3 position, int width, int height, Tile tile)
         {
             int controlId = GUIUtility.GetControlID(FocusType.Passive);
+            TileHandle handle = new TileHandle();
 
-            TileHandle.Draw(controlId, position, width, height, Quaternion.identity);
+            handle.Draw(controlId, position, width, height, Quaternion.identity);
         }
 
         void DrawTileBrush ()

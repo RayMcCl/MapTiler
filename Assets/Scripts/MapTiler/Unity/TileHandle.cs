@@ -1,12 +1,27 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Assets.Scripts.MapTiler.Unity
+namespace MapTiler.Unity
 {
-    class TileHandle
+    class TileHandle : CustomHandle
     {
-        public static void Draw (int id, Vector3 origin, int width, int height, Quaternion rotation)
+        private Color currentFillColor;
+        private Color currentOutlineColor;
+        
+        private Color fillColor = new Color(1, 1, 1, 0.3f);
+        private Color outlineColor = new Color(1, 1, 1, 0.5f);
+
+        private Color activeFillColor = new Color(0, 1, 0, 0.3f);
+        private Color activeOutlineColor = new Color(0, 1, 0, 0.5f);
+        
+        private Color hoverFillColor = new Color(0, 0, 1, 0.3f);
+        private Color hoverOutlineColor = new Color(0, 0, 1, 0.5f);
+
+        public void Draw (int id, Vector3 origin, int width, int height, Quaternion rotation)
         {
+            currentFillColor = fillColor;
+            currentOutlineColor = outlineColor;
+
             Event evt = Event.current;
 
             Vector3[] verts = new Vector3[]
@@ -17,13 +32,11 @@ namespace Assets.Scripts.MapTiler.Unity
                 new Vector3(origin.x, origin.y + height, origin.z)
             };
 
-
             switch (evt.GetTypeForControl(id))
             {
                 case EventType.Layout:
-                    //Handles.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(width, height, 1f));
-                    Handles.RectangleHandleCap(id, origin, Quaternion.identity, 1f, EventType.Layout);
-
+                    float distance = CustomHandleUtility.DistanceToRectangle(origin, Camera.current.transform.rotation, new Vector2(width, height));
+                    HandleUtility.AddControl(id, distance);
                     break;
                 case EventType.MouseDown:
                     if ((HandleUtility.nearestControl == id && evt.button == 0) && GUIUtility.hotControl == 0)
@@ -47,31 +60,45 @@ namespace Assets.Scripts.MapTiler.Unity
                     }
                     break;
                 case EventType.Repaint:
-                    Color temp = Color.white;
-
-                    Handles.color = Color.green;
-                    Handles.RectangleHandleCap(id, origin, Quaternion.identity, 0.5f, EventType.Repaint);
-
-                    Handles.color = Color.red;
+                    Color temp = Handles.color;
 
                     if (id == GUIUtility.hotControl)
                     {
-                        temp = Handles.color;
-
-                        Handles.color = Handles.selectedColor * new Color(1f, 1f, 1f, 0.3f);
-
+                        OnActive();
                     } else if ( id == HandleUtility.nearestControl && GUIUtility.hotControl == 0)
                     {
-                        temp = Handles.color;
-                        Handles.color = Handles.preselectionColor;
+                        OnHover();
                     }
 
-
-                    Handles.DrawSolidRectangleWithOutline(verts, Color.blue, Color.white);
-
+                    Handles.color = currentFillColor;
+                    Handles.DrawSolidRectangleWithOutline(verts, currentFillColor, currentOutlineColor);
+                    
+                    // Reset the Handle color
                     Handles.color = temp;
                     break;
             }
+        }
+
+        private void OnHover ()
+        {
+            currentFillColor = hoverFillColor;
+            currentOutlineColor = hoverOutlineColor;
+        }
+
+        private void OnActive ()
+        {
+            currentFillColor = activeFillColor;
+            currentOutlineColor = activeOutlineColor;
+        }
+
+        private void OnMouseDown ()
+        {
+
+        }
+
+        private void OnMouseUp ()
+        {
+
         }
     }
 }
