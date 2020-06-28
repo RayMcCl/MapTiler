@@ -15,7 +15,6 @@ namespace MapTiler
         {
             this.width = width;
             this.height = height;
-            // TODO: Cleanup tiles
         }
     }
 }

@@ -17,8 +17,10 @@ namespace MapTiler.Unity
         public override void OnInspectorGUI()
         {
             mapTiler = (MapTiler)target;
-            MapPropertiesView mapProperties = new MapPropertiesView(this);
-            mapProperties.Draw();
+            LayerSelectView layerSelect = new LayerSelectView(this);
+            LayerPropertiesView layerProperties = new LayerPropertiesView(this);
+            layerSelect.Draw();
+            layerProperties.Draw();
         }
 
         void OnSceneGUI()

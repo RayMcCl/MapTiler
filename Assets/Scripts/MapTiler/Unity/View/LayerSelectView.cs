@@ -3,24 +3,28 @@ using UnityEditor;
 
 namespace MapTiler.Unity.View
 {
-    public class MapPropertiesView : View
+    /// <summary>
+    /// 
+    /// </summary>
+    public class LayerSelectView : View
     {
         MapTilerEditor editor;
-        public MapPropertiesView (MapTilerEditor editor)
+        public LayerSelectView(MapTilerEditor editor)
         {
             this.editor = editor;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Draw ()
         {
             MapTiler mapTiler = editor.mapTiler;
-            mapTiler.map.width = EditorGUILayout.IntField(mapTiler.map.width);
-            mapTiler.map.height = EditorGUILayout.IntField(mapTiler.map.height);
 
             int selectedLayer = GetActiveLayerIndex(editor.activeLayer, mapTiler.map.layers);
             string[] layerNames = GetLayerNames(mapTiler.map.layers);
 
-            selectedLayer = EditorGUILayout.Popup(selectedLayer, layerNames);
+            selectedLayer = EditorGUILayout.Popup("Active Layer", selectedLayer, layerNames);
 
             if (mapTiler.map.layers[selectedLayer] != editor.activeLayer)
             {
