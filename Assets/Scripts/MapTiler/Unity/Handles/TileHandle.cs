@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace MapTiler.Unity
 {
-    class TileHandle : CustomHandle
+    public class TileHandle : CustomHandle
     {
         private Color currentFillColor;
         private Color currentOutlineColor;

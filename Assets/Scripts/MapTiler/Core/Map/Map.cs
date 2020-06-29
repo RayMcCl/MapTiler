@@ -7,9 +7,9 @@ namespace MapTiler
     public class Map
     {
         public int maxLayers = 10;
-        public List<Layer> layers;
+        public List<Layer> layers = new List<Layer>();
         public List<Tile> tiles;
-        public Point origin;
+        public Point origin = new Point(0, 0);
 
         public void AddLayer (Layer layer)
         {

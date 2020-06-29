@@ -5,7 +5,7 @@ namespace MapTiler
     [Serializable]
     public class Layer
     {
-        public string name;
+        public string name = "";
         public int width;
         public int height;
         public Point origin;

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapTiler
+namespace MapTiler.Unity
 {
-    public abstract class Plugin
+    public static class UnitySettings
     {
-        public abstract void Draw();
+        public static string assetPath = "Assets/Scripts/MapTiler";
     }
 }
